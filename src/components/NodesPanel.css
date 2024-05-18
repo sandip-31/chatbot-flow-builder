@@ -1,0 +1,17 @@
+.nodes-panel {
+    flex: 1;
+  }
+  
+  .node-item {
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .node-item.dragging {
+    opacity: 0.5;
+  }
+  
