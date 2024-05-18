@@ -1,14 +1,20 @@
 .text-node {
-    padding: 10px;
-    border: 1px solid #007bff;
-    border-radius: 4px;
-    background-color: white;
-    text-align: center;
-    cursor: pointer;
-  }
-  
-  .text-node-content {
-    font-size: 14px;
-    color: #333;
-  }
-  
+  border: 1px solid #007bff;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-align: center;
+  min-width: 150px;
+}
+
+.text-node:hover {
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.handle {
+  width: 10px;
+  height: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+}

@@ -1,9 +1,31 @@
 .sidebar {
-    width: 300px;
-    background-color: #ffffff;
-    border-left: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-  }
-  
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-left: 1px solid #ddd;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.node-item {
+  padding: 15px;
+  border: 2px dashed #007bff;
+  border-radius: 8px;
+  background-color: #e9ecef;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.node-item:hover {
+  background-color: #d6e9f5;
+}
+
+.node-item.dragging {
+  opacity: 0.5;
+}

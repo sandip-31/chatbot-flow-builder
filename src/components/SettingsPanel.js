@@ -1,10 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { FlowContext } from '../context/FlowContext';
-import './SettingsPanel.css';
+import React, { useContext, useEffect, useState } from "react";
+import { FlowContext } from "../context/FlowContext";
+import "./SettingsPanel.css";
 
 const SettingsPanel = () => {
-  const { selectedNode, setNodes, setSelectedNode } = useContext(FlowContext);
-  const [label, setLabel] = useState('');
+  const { selectedNode, nodes, setNodes, setSelectedNode } =
+    useContext(FlowContext);
+  const [label, setLabel] = useState("");
 
   useEffect(() => {
     if (selectedNode) {
@@ -12,18 +13,13 @@ const SettingsPanel = () => {
     }
   }, [selectedNode]);
 
-  const updateNodeLabel = (event) => {
-    setLabel(event.target.value);
-  };
-
-  const saveChanges = () => {
-    setNodes((nodes) =>
-      nodes.map((node) => {
-        if (node.id === selectedNode.id) {
-          node.data = { ...node.data, label };
-        }
-        return node;
-      })
+  const handleSave = () => {
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === selectedNode.id
+          ? { ...node, data: { ...node.data, label } }
+          : node
+      )
     );
     setSelectedNode(null);
   };
@@ -32,14 +28,16 @@ const SettingsPanel = () => {
 
   return (
     <div className="settings-panel">
-      <h3>Settings</h3>
-      <input
-        type="text"
-        value={label}
-        onChange={updateNodeLabel}
-        className="settings-input"
-      />
-      <button onClick={saveChanges} className="settings-save-button">
+      <div className="form-group">
+        <label>Node Label</label>
+        <input
+          type="text"
+          className="form-control"
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+        />
+      </div>
+      <button className="btn btn-primary mt-3" onClick={handleSave}>
         Save
       </button>
     </div>
