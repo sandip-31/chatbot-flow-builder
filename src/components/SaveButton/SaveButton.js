@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { FlowContext } from "../context/FlowContext";
+import { FlowContext } from "../../context/FlowContext";
 import "./SaveButton.css";
 import { useSnackbar } from "notistack";
+import strings from '../../constants/strings';
 
 const SaveButton = () => {
   const { nodes, edges, savedNodes, setSavedNodes } = useContext(FlowContext);
@@ -9,41 +10,31 @@ const SaveButton = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleSave = () => {
-    // const hasUnconnectedNodes = nodes.some(
-    //   (node) =>
-    //     !edges.some(
-    //       (edge) => edge.source === node.id || edge.target === node.id
-    //     )
-    // );
-
     const nodesWithNoIncomingEdges = nodes.filter(
       (node) => !edges.some((edge) => edge.target === node.id)
     );
-
-    // console.log("test length", nodesWithNoIncomingEdges?.length);
-
+    console.log("nodesWithNoIncomingEdges",nodesWithNoIncomingEdges)
     if (nodesWithNoIncomingEdges?.length >= 2) {
-      enqueueSnackbar("Cannot save Flow..", {
+      enqueueSnackbar(strings.errors.emptyTargetHandles, {
         variant: "error",
         anchorOrigin: { horizontal: "center", vertical: "top" },
       });
     } else {
       setSavedNodes(nodes);
-      enqueueSnackbar("Flow saved successfully!", {
+      enqueueSnackbar(strings.success.flowSaved, {
         variant: "success",
         anchorOrigin: { horizontal: "center", vertical: "top" },
       });
-      // Perform save logic here, such as sending data to a server
     }
   };
 
   return (
     <button
-      className="save-button btn btn-primary"
+      className="save-button btn btn-primary text-alig"
       onClick={handleSave}
       disabled={JSON.stringify(savedNodes) === JSON.stringify(nodes)}
     >
-      Save Flow
+      {strings.flowBuilder.saveButtonText}
     </button>
   );
 };

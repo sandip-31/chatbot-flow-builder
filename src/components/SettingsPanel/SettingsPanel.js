@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FlowContext } from "../context/FlowContext";
+import { FlowContext } from "../../context/FlowContext";
 import "./SettingsPanel.css";
 
 const SettingsPanel = () => {

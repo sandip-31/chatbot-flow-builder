@@ -10,10 +10,11 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { useDrop } from "react-dnd";
-import { FlowContext } from "../context/FlowContext";
-import TextNode from "./nodes/TextNode";
+import { FlowContext } from "../../context/FlowContext";
+import TextNode from "../nodes/TextNode";
 import "./FlowBuilder.css";
 import { useSnackbar } from "notistack";
+import strings from '../../constants/strings';
 
 const nodeTypes = {
   textNode: TextNode,
@@ -37,11 +38,10 @@ const FlowBuilder = () => {
     // Check if there is already an edge from the source handle
     const sourceHasEdge = edges.some((edge) => edge.source === source);
     if (sourceHasEdge) {
-      enqueueSnackbar("A source handle can only have one outgoing edge.", {
+      enqueueSnackbar(strings.errors.oneEdgeFromSource, {
         variant: "error",
         anchorOrigin: { horizontal: "center", vertical: "top" },
       });
-      // alert("A source handle can only have one outgoing edge.");
       return;
     }
 
@@ -62,14 +62,10 @@ const FlowBuilder = () => {
           x: offset.x - position.left - 120,
           y: offset.y - position.top - 35,
         },
-        data: { label: "New Text Node" },
+        data: { label: strings.flowBuilder.newTextNodeLabel },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
       };
-      // enqueueSnackbar("Node Added", {
-      //   variant: "success",
-      //   anchorOrigin: { horizontal: "center", vertical: "top" },
-      // });
       setNodes((nds) => [...nds, newNode]);
     },
     collect: (monitor) => ({
