@@ -1,17 +1,26 @@
 .nodes-panel {
-    flex: 1;
-  }
-  
-  .node-item {
-    padding: 10px;
-    border: 1px solid #007bff;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    text-align: center;
-    cursor: pointer;
-  }
-  
-  .node-item.dragging {
-    opacity: 0.5;
-  }
-  
+  flex: 1;
+  padding: 10px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.node-item {
+  padding: 10px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+.node-item:hover {
+  background-color: #e0e0e0;
+}
+
+.node-item.dragging {
+  opacity: 0.5;
+}

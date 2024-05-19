@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef } from "react";
 import ReactFlow, {
   addEdge,
   applyNodeChanges,
@@ -6,32 +6,42 @@ import ReactFlow, {
   MiniMap,
   Controls,
   Background,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
-import { useDrop } from 'react-dnd';
-import { FlowContext } from '../context/FlowContext';
-import TextNode from './nodes/TextNode';
-import './FlowBuilder.css';
+  Position,
+} from "reactflow";
+import "reactflow/dist/style.css";
+import { useDrop } from "react-dnd";
+import { FlowContext } from "../context/FlowContext";
+import TextNode from "./nodes/TextNode";
+import "./FlowBuilder.css";
+import { useSnackbar } from "notistack";
 
 const nodeTypes = {
   textNode: TextNode,
 };
 
 const FlowBuilder = () => {
-  const { nodes, setNodes, edges, setEdges, setSelectedNode } = useContext(FlowContext);
+  const { nodes, setNodes, edges, setEdges, setSelectedNode } =
+    useContext(FlowContext);
   const dropRef = useRef(null);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const onNodesChange = (changes) => setNodes((nds) => applyNodeChanges(changes, nds));
-  const onEdgesChange = (changes) => setEdges((eds) => applyEdgeChanges(changes, eds));
+  const onNodesChange = (changes) =>
+    setNodes((nds) => applyNodeChanges(changes, nds));
+  const onEdgesChange = (changes) =>
+    setEdges((eds) => applyEdgeChanges(changes, eds));
 
   // Enhanced onConnect function
   const onConnect = (params) => {
     const { source, target } = params;
 
     // Check if there is already an edge from the source handle
-    const sourceHasEdge = edges.some(edge => edge.source === source);
+    const sourceHasEdge = edges.some((edge) => edge.source === source);
     if (sourceHasEdge) {
-      alert('A source handle can only have one outgoing edge.');
+      enqueueSnackbar("A source handle can only have one outgoing edge.", {
+        variant: "error",
+        anchorOrigin: { horizontal: "center", vertical: "top" },
+      });
+      // alert("A source handle can only have one outgoing edge.");
       return;
     }
 
@@ -40,7 +50,7 @@ const FlowBuilder = () => {
   };
 
   const [{ isOver }, drop] = useDrop({
-    accept: 'node',
+    accept: "node",
     drop: (item, monitor) => {
       if (!dropRef.current) return;
       const offset = monitor.getClientOffset();
@@ -48,9 +58,18 @@ const FlowBuilder = () => {
       const newNode = {
         id: `${item.type}-${nodes.length}`,
         type: item.type,
-        position: { x: offset.x - position.left, y: offset.y - position.top },
-        data: { label: 'New Text Node' },
+        position: {
+          x: offset.x - position.left - 120,
+          y: offset.y - position.top - 35,
+        },
+        data: { label: "New Text Node" },
+        sourcePosition: Position.Right,
+        targetPosition: Position.Left,
       };
+      // enqueueSnackbar("Node Added", {
+      //   variant: "success",
+      //   anchorOrigin: { horizontal: "center", vertical: "top" },
+      // });
       setNodes((nds) => [...nds, newNode]);
     },
     collect: (monitor) => ({
@@ -70,7 +89,7 @@ const FlowBuilder = () => {
         onConnect={onConnect}
         onNodeClick={(event, node) => setSelectedNode(node)}
         nodeTypes={nodeTypes}
-        fitView
+        // fitView
       >
         <MiniMap />
         <Controls />
