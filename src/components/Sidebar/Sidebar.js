@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useDrag } from 'react-dnd';
-import { FlowContext } from '../context/FlowContext';
-import SettingsPanel from './SettingsPanel';
+import { FlowContext } from '../../context/FlowContext';
+import SettingsPanel from '../SettingsPanel';
 import './Sidebar.css';
 
 const Sidebar = () => {
