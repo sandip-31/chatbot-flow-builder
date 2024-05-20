@@ -34,7 +34,7 @@ Developed using React and React Flow, this intuitive chatbot flow builder empowe
 
 👉 **Node Connections**: Create edges to connect nodes together, defining the flow of the conversation. Source handles can only have one outgoing edge, while target handles can have multiple incoming edges.
 
-👉 **Save Button**: Save the entire flow as an image, with validations to ensure no unconnected nodes are left, providing a seamless experience for the user.
+👉 **Save Button**: Save the entire flow.
 
 👉 **Toast Notifications:**: Real-time feedback and error messages using toast notifications for a user-friendly experience.
 
